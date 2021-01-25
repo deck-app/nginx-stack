@@ -99,7 +99,7 @@ services:
   app:
     image: dockerstacks/nginx_php:v{PHP version}
     volumes:
-      - .:/var/www/html
+      - .:/var/www/
     ports:
       - mode: host
         target: 80
