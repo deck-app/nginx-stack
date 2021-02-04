@@ -16,15 +16,18 @@ user:
     target:
       PHP_VERSION
 
-  # install_xdebug:
-  #   label:
-  #     Install XDEBUG?
-  #   type:
-  #     checkbox
-  #   hint:
-  #     Check to enable XDEBUG installation
-  #   target:
-  #     INSTALL_XDEBUG
+  install_xdebug:
+    label:
+      Install XDEBUG?
+    type:
+      select
+    values:
+      - on
+      - off
+    hint:
+      Check to enable XDEBUG installation
+    target:
+      INSTALL_XDEBUG
   # mysql_version:
   #   label:
   #     MySQL version
@@ -56,11 +59,11 @@ system:
     true
   #For collecting and storing DB in .env
   #db/user/password
-  db_credentials:
-    false
+  # db_credentials:
+  #   false
   #Generate public ports for the docker image
   ports:
     http:
-      SERVER_PORT
+      NGINX_HOST_HTTP_PORT
     others:
 
