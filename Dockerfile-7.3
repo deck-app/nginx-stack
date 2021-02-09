@@ -1,5 +1,5 @@
 FROM alpine:3.9
-
+LABEL maintainer Naba Das <nabad600@gmail.com>
 ARG BUILD_DATE
 ARG VCS_REF
 
@@ -76,8 +76,17 @@ RUN sed -i "s#{SERVER_ROOT}#$SERVER_ROOT#g" /etc/nginx/conf.d/default.conf
 VOLUME [ "/var/www/" ]
 WORKDIR /var/www
 COPY php_ini/php7.3.ini /etc/php/7.3/php.ini
+
 ARG DISPLAY_PHPERROR
-RUN sed -i "s#{DISPLAY_PHPERROR}#$DISPLAY_PHPERROR#g" /etc/php/7.3/php.ini
+ARG DISPLAY_O
+ARG DISPLAY_F
+RUN if [ ${DISPLAY_PHPERROR} = true ]; then \
+sed -i "s#{DISPLAY}#$DISPLAY_O#g" /etc/php/7.3/php.ini \
+;fi
+
+RUN if [ ${DISPLAY_PHPERROR} = false ]; then \
+sed -i "s#{DISPLAY}#$DISPLAY_F#g" /etc/php/7.3/php.ini \
+;fi
 
 EXPOSE 80
 RUN chmod +x /sbin/runit-wrapper
