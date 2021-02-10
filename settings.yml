@@ -8,7 +8,7 @@ user:
     type:
       select
     values:
-      - 7.0
+      - "7.0"
       - 7.1
       - 7.2
       - 7.3
@@ -16,16 +16,13 @@ user:
     target:
       PHP_VERSION
 
-  install_PHPERROR:
+  PHP error_reporting:
     label:
-      Install PHPERROR?
+      Check Display Error Reporting?
     type:
-      select
-    values:
-      - On
-      - Off
+      Checkbox
     hint:
-      Check to On/Off display error
+      Check to Enable or Disable "Display PHP error reporting?"
     target:
       DISPLAY_PHPERROR
   # mysql_version:
