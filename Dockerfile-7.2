@@ -80,6 +80,10 @@ VOLUME [ "/var/www/" ]
 WORKDIR /var/www
 COPY php_ini/php7.2.ini /etc/php/7.2/php.ini
 
+# Composer install
+RUN apk add curl
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
 ARG DISPLAY_PHPERROR
 RUN if [ ${DISPLAY_PHPERROR} = true ]; then \
 sed -i "s#{DISPLAY}#On#g" /etc/php/7.2/php.ini \
