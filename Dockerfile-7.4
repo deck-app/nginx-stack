@@ -53,6 +53,8 @@ ARG DEPS="\
         php7.4-json \
         php7.4-posix \
         php7.4-fpm \
+        php7.4-dev \
+        php7.4-pear \
         curl \
         ca-certificates \
         runit \
@@ -89,6 +91,15 @@ RUN if [ ${DISPLAY_PHPERROR} = true ]; then \
 sed -i "s#{DISPLAY}#On#g" /etc/php/7.4/php.ini \
 ;else \
 sed -i "s#{DISPLAY}#Off#g" /etc/php/7.4/php.ini \
+;fi
+
+#mongodb version update
+ARG MONGODB_VERSION
+RUN if [ ${MONGODB_VERSION} = true ]; then \
+pecl install mongodb \
+&& echo "extension=mongodb.so" > /etc/php/7.4/conf.d/mongodb.ini \
+;else \
+apk add php7.4-mongodb \
 ;fi
 
 EXPOSE 80
