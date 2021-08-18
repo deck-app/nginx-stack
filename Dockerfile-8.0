@@ -10,7 +10,7 @@ ENV PHP_INI_DIR /etc/php8/conf.d/custom.ini
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
 # Install packages and remove default server definition
-RUN apk --no-cache add php8=8.0.2-r0 php8-fpm php8-opcache php8-mysqli php8-json \
+RUN apk --no-cache add php8=8.0.8-r0 php8-fpm php8-opcache php8-mysqli php8-json \
     php8-openssl php8-curl php8-soap php8-zlib php8-xml php8-phar php8-intl php8-dom php8-xmlreader php8-ctype php8-session php8-simplexml \
     php8-mbstring php8-gd nginx supervisor curl php8-exif php8-zip php8-fileinfo php8-iconv php8-soap tzdata htop mysql-client \
     php8-pecl-imagick php8-pecl-redis && \
@@ -23,7 +23,6 @@ RUN ln -s /usr/bin/php8 /usr/bin/php
 
 RUN apk add --upgrade php8-pecl-maxminddb
 RUN apk add --upgrade php8-pecl-mongodb
-RUN apk add bash
 
 # Install PHP tools
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
