@@ -1,4 +1,4 @@
-FROM --platform=linux/x86_64 alpine:3.10
+FROM --platform=linux/x86_64 alpine:3.9
 LABEL maintainer Naba Das <hello@get-deck.com>
 ARG BUILD_DATE
 ARG VCS_REF
@@ -53,6 +53,8 @@ ARG DEPS="\
         php7-mysqli \
         php7-json \
         php7-posix \
+        php7-simplexml \
+        php7-pdo \
         php7-fpm \
         php7-dev \
         php7-pear \
@@ -87,6 +89,7 @@ COPY php_ini/php7.4.ini /etc/php7/php.ini
 
 # Composer install
 RUN apk add curl
+RUN apk add --no-cache openssl openssl-dev
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 ARG DISPLAY_PHPERROR
@@ -95,6 +98,12 @@ sed -i "s#{DISPLAY}#On#g" /etc/php7/php.ini \
 ;else \
 sed -i "s#{DISPLAY}#Off#g" /etc/php7/php.ini \
 ;fi
+
+#RUN apk --update add gcc make g++ zlib-dev 
+
+# mongodb installation
+#RUN pecl install mongodb-1.11.0alpha1
+#RUN echo "extension=mongodb.so" > /etc/php7/conf.d/mongodb.ini
 
 
 EXPOSE 80

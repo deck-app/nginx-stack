@@ -1,4 +1,4 @@
-FROM --platform=linux/x86_64 alpine:3.10
+FROM --platform=linux/x86_64 alpine:3.12
 LABEL maintainer Naba Das <hello@get-deck.com>
 ARG BUILD_DATE
 ARG VCS_REF
@@ -54,6 +54,7 @@ ARG DEPS="\
         php8-json \
         php8-posix \
         php8-fpm \
+        php8-pdo \
         php8-dev \
         php8-pear \
         composer \
@@ -75,6 +76,7 @@ RUN set -x \
 RUN apk add openrc
 RUN apk add nano
 RUN apk add bash
+RUN apk add icu-libs
 
 COPY nginx7 /
 
@@ -87,6 +89,7 @@ WORKDIR /var/www
 COPY php_ini/php8.0.ini /etc/php8/php.ini
 
 # Composer install
+RUN apk add --no-cache openssl openssl-dev
 RUN apk add curl
 
 ARG DISPLAY_PHPERROR
@@ -96,6 +99,13 @@ sed -i "s#{DISPLAY}#On#g" /etc/php8/php.ini \
 sed -i "s#{DISPLAY}#Off#g" /etc/php8/php.ini \
 ;fi
 COPY run /etc/service/php-fpm/run
+RUN apk --update add gcc make g++ zlib-dev
+RUN ln -s /usr/bin/php8 /usr/bin/php
+
+# mongodb installation
+
+RUN ln -s /usr/bin/phar8 /usr/bin/phar
+RUN apk add --no-cache php8-pecl-mongodb
 
 
 EXPOSE 80
