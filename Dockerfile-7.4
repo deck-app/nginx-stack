@@ -99,11 +99,11 @@ sed -i "s#{DISPLAY}#On#g" /etc/php7/php.ini \
 sed -i "s#{DISPLAY}#Off#g" /etc/php7/php.ini \
 ;fi
 
-#RUN apk --update add gcc make g++ zlib-dev 
+RUN apk --update add gcc make g++ zlib-dev 
 
 # mongodb installation
-#RUN pecl install mongodb-1.11.0alpha1
-#RUN echo "extension=mongodb.so" > /etc/php7/conf.d/mongodb.ini
+RUN pecl install mongodb-1.11.0alpha1
+RUN echo "extension=mongodb.so" > /etc/php7/conf.d/mongodb.ini
 
 
 EXPOSE 80
