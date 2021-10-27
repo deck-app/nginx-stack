@@ -1,57 +1,9 @@
 FROM deckapp/nginx:v7.1
 LABEL MANTAINTS Naba Das <hello@get-deck.com>
-ARG BUILD_DATE
-ARG VCS_REF
-
-LABEL org.label-schema.build-date=$BUILD_DATE \
-      org.label-schema.vcs-url="https://github.com/deck-app/nginx-stack.git" \
-      org.label-schema.vcs-ref=$VCS_REF \
-      org.label-schema.schema-version="2.0" \
-      org.label-schema.vendor="PHP" \
-      org.label-schema.name="docker-php" \
-      org.label-schema.description="Docker For PHP Developers - Docker image with PHP 7.1, Nginx, and Alpine" \
-      org.label-schema.url="https://github.com/deck-app/nginx-stack"
-
-# PHP_INI_DIR to be symmetrical with official php docker image
-ENV PHP_INI_DIR /etc/php/7.1
-
-# When using Composer, disable the warning about running commands as root/super user
-ENV COMPOSER_ALLOW_SUPERUSER=1
 
 # Persistent runtime dependencies
 ARG DEPS="\
-        php7-phar \
-        php7-bcmath \
-        php7-calendar \
-        php7-mbstring \
-        php7-exif \
-        php7-ftp \
-        php7-openssl \
-        php7-zip \
-        php7-sysvsem \
-        php7-sysvshm \
-        php7-sysvmsg \
-        php7-shmop \
-        php7-sockets \
-        php7-zlib \
-        php7-bz2 \
-        php7-curl \
-        php7-simplexml \
-        php7-xml \
-        php7-opcache \
-        php7-dom \
-        php7-xmlreader \
-        php7-xmlwriter \
-        php7-tokenizer \
-        php7-ctype \
-        php7-session \
-        php7-fileinfo \
-        php7-iconv \
-        php7-mysqli \
-        php7-json \
-        php7-posix \
-        php7-dev \
-        php7-pear \
+        #add to extension (i.e. php7-fpm \)
 "
 
 
@@ -68,19 +20,12 @@ VOLUME [ "/var/www/" ]
 WORKDIR /var/www
 COPY php_ini/php7.1.ini /etc/php7/php.ini
 
-# Composer install
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
 ARG DISPLAY_PHPERROR
 RUN if [ ${DISPLAY_PHPERROR} = true ]; then \
 sed -i "s#{DISPLAY}#On#g" /etc/php7/php.ini \
 ;else \
 sed -i "s#{DISPLAY}#Off#g" /etc/php7/php.ini \
 ;fi
-
-#mongodb version update
-#pecl install mongodb \
-#&& echo "extension=mongodb.so" > /etc/php7/conf.d/mongodb.ini
 
 #Xdebug enable or disable
 ARG XDEBUG
