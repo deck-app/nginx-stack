@@ -1,0 +1,28 @@
+name: Publish Docker Image
+
+on:
+  push:
+    branches: [ image ]
+env:
+  IMAGE_NAME: nginx
+  VERSION: v7.1
+jobs:
+  buildImage:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build Container image
+        run: docker buildx build . --file Dockerfile-7.1 --platform linux/amd64,linux/arm64/v8,linux/ppc64le,linux/s390x --tag $IMAGE_NAME
+        
+      - name: log into GitHub Container Registry
+        run: echo "${{ secrets.GITHUB_TOKEN}}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
+        
+      - name: Push image to GitHub Container Registry
+        run: |
+            IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
+            echo IMAGE_ID=$IMAGE_ID
+            echo VERSION=$VERSION
+            docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
+            docker tag $IMAGE_NAME $IMAGE_NAME:${{ github.run_id }}
+            docker push $IMAGE_ID:$VERSION

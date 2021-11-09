@@ -1,16 +1,16 @@
-FROM --platform=linux/x86_64 alpine:3.12
+FROM alpine:3.12
 LABEL maintainer Naba Das <hello@get-deck.com>
 ARG BUILD_DATE
 ARG VCS_REF
 
 LABEL org.label-schema.build-date=$BUILD_DATE \
-      org.label-schema.vcs-url="https://github.com/phpearth/docker-php.git" \
+      org.label-schema.vcs-url="https://github.com/deck-app/nginx-stack.git" \
       org.label-schema.vcs-ref=$VCS_REF \
-      org.label-schema.schema-version="1.0" \
-      org.label-schema.vendor="PHP.earth" \
+      org.label-schema.schema-version="2.0" \
+      org.label-schema.vendor="PHP" \
       org.label-schema.name="docker-php" \
       org.label-schema.description="Docker For PHP Developers - Docker image with PHP 8.0.11, Nginx, and Alpine" \
-      org.label-schema.url="https://github.com/phpearth/docker-php"
+      org.label-schema.url="https://github.com/deck-app/nginx-stack"
 
 # PHP_INI_DIR to be symmetrical with official php docker image
 ENV PHP_INI_DIR /etc/php8
@@ -23,6 +23,11 @@ ARG DEPS="\
         nginx \
         nginx-mod-http-headers-more \
         php8 \
+        php8-fpm \
+        composer \
+        curl \
+        ca-certificates \
+        runit \
         php8-phar \
         php8-bcmath \
         php8-calendar \
@@ -53,14 +58,9 @@ ARG DEPS="\
         php8-mysqli \
         php8-json \
         php8-posix \
-        php8-fpm \
         php8-pdo \
         php8-dev \
         php8-pear \
-        composer \
-        curl \
-        ca-certificates \
-        runit \
 "
 
 # PHP.earth Alpine repository for better developer experience
