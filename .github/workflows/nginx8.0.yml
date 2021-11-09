@@ -33,12 +33,8 @@ jobs:
         with:
           driver-opts: image=moby/buildkit:master
 
-      - name: Login to GHCR
-        uses: docker/login-action@v1 
-        with:
-          registry: https://${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GHCR_PAT }}
+      - name: log into GitHub Container Registry
+        run: echo "${{ secrets.GITHUB_TOKEN}}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Build and push
         id: docker_build
