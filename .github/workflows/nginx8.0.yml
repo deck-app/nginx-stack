@@ -12,14 +12,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@image
+        with:
+          platforms: all
 
       - name: Build Container image
         #run: docker buildx build . --file Dockerfile-8.0 --tag $IMAGE_NAME
         with:
           context: Dockerfile-8.0
-          platforms: linux/amd64,linux/arm64,linux/ppc64le,linux/s390x
+          platforms: linux/amd64,linux/arm64,linux/ppc64le
           push: true
           tags: $IMAGE_NAME
         
