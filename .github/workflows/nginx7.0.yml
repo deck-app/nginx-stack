@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build Container image
-        run: docker buildx build . --file Dockerfile-7.0 --platform linux/amd64 --tag $IMAGE_NAME
+        run: docker buildx build . --file Dockerfile-7.0 --tag $IMAGE_NAME
         
       - name: log into GitHub Container Registry
         run: echo "${{ secrets.GITHUB_TOKEN}}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
