@@ -12,19 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Set up QEMU
-      - uses: docker/setup-qemu-action@image
-        with:
-          platforms: all
-
       - name: Build Container image
-      - uses: docker/action-docker-publish-changed@v3
-        #run: docker buildx build . --file Dockerfile-8.0 --tag $IMAGE_NAME
-        with:
-          context: Dockerfile-8.0
-          platforms: linux/amd64,linux/arm64,linux/ppc64le
-          push: true
-          tags: $IMAGE_NAME
+        #run: docker buildx build --platform linux/arm/v7,linux/amd64 . --file Dockerfile-8.0 --tag $IMAGE_NAME
+        run: docker buildx build --platform linux/amd64,linux/arm64/v8 --tag $IMAGE_NAME --push -f Dockerfile-8.0 .
         
       - name: log into GitHub Container Registry
         run: echo "${{ secrets.GITHUB_TOKEN}}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
