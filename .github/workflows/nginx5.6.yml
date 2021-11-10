@@ -2,7 +2,7 @@ name: Publish Docker Image
 
 on:
   push:
-    branches: [ image ]
+    branches: [ master ]
 env:
   IMAGE_NAME: nginx
   VERSION: v5.6
@@ -11,18 +11,21 @@ jobs:
     name: Build Docker Image
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Build Container image
-        run: docker buildx build . --file Dockerfile-5.6 --tag $IMAGE_NAME
-        
+      - name: Set up QEMU
+        id: qemu
+        uses: docker/setup-qemu-action@master
+        with:
+          platforms: linux/amd64,linux/arm64,linux/ppc64le,linux/s390x
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@master
+        with:
+          driver-opts: image=moby/buildkit:master
+      
       - name: log into GitHub Container Registry
         run: echo "${{ secrets.GITHUB_TOKEN}}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
-        
-      - name: Push image to GitHub Container Registry
-        run: |
-            IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
-            echo IMAGE_ID=$IMAGE_ID
-            echo VERSION=$VERSION
-            docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
-            docker tag $IMAGE_NAME $IMAGE_NAME:${{ github.run_id }}
-            docker push $IMAGE_ID:$VERSION
+
+      - uses: actions/checkout@v2
+      - name: Build Container image
+        run: docker buildx build --platform linux/amd64,linux/arm64,linux/ppc64le,linux/s390x --tag ghcr.io/${{ github.repository_owner }}/nginx:v5.6 -f Dockerfile-5.6 . --push
