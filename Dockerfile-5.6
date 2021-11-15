@@ -1,13 +1,8 @@
-FROM deckapp/nginx:v5.6
+FROM ghcr.io/deck-app/nginx:v5.6
 LABEL maintainer Naba Das <hello@get-deck.com>
 
 # Persistent runtime dependencies
-ARG DEPS="\
-        #add to extension (i.e. php5-fpm \)
-"
-
-RUN set -x \
-    && apk add --no-cache $DEPS
+# Example RUN apk add --no-cache php5-openssl php5-sysvmsg php5-curl
 
 COPY default.conf /etc/nginx/conf.d/default.conf
 ARG SERVER_ROOT
