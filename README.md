@@ -1,6 +1,6 @@
-# Docker Squash to reduce the size of the final Docker image for PHP + Nginx
+# Docker image for PHP + Nginx
 
-Carefully crafted Docker Squash to reduce the size of the final Docker image for PHP + Nginx with PHP 7.3, PHP 7.2, PHP 7.1, PHP 7.0, Nginx.
+Carefully crafted Docker image for PHP + Nginx with PHP 8.0, PHP 7.4, PHP 5.6, Nginx.
 
 * Fast and simple PHP extensions installation
 * Alpine base image with [PHP.earth PHP repositories](https://docs.php.earth/linux/alpine)
@@ -15,13 +15,12 @@ Carefully crafted Docker Squash to reduce the size of the final Docker image for
 
 The following list contains all current Docker tags and what is included in each.
 
+
 | System | Docker Tag | Features | Size |
 | ------ | ---------- | -------- | ---- |
-| **PHP 7.0.33**@Alpine 3.7.3 | [`7.0-nginx`](https://github.com/phpearth/docker-php/tree/master/docker/7.0-nginx.Dockerfile) | Nginx 1.12.2, FPM | [![](https://images.microbadger.com/badges/image/phpearth/php:7.0-nginx.svg)](https://microbadger.com/images/phpearth/php:7.0-nginx "Image size") |
-| **PHP 7.1.28**@Alpine 3.9.3 | [`7.1-nginx`](https://github.com/phpearth/docker-php/tree/master/docker/7.1-nginx.Dockerfile) | Nginx 1.14.2, FPM | [![](https://images.microbadger.com/badges/image/phpearth/php:7.1-nginx.svg)](https://microbadger.com/images/phpearth/php:7.1-nginx "Image size") |
-| **PHP 7.2.17**@Alpine 3.9.3 | [`7.2-nginx`](https://github.com/phpearth/docker-php/tree/master/docker/7.2-nginx.Dockerfile) | Nginx 1.14.2, FPM | [![](https://images.microbadger.com/badges/image/phpearth/php:7.2-nginx.svg)](https://microbadger.com/images/phpearth/php:7.2-nginx "Image size") |
-| **PHP 7.3.4**@Alpine 3.9.3 | [`7.3-nginx`](https://github.com/phpearth/docker-php/tree/master/docker/7.3-nginx.Dockerfile) | Nginx 1.14.2, FPM | [![](https://images.microbadger.com/badges/image/phpearth/php:7.3-nginx.svg)](https://microbadger.com/images/phpearth/php:7.3-nginx "Image size") |
-| **PHP 7.4.0alpha1**@Alpine 3.9.4 | [`7.4-nginx`](https://github.com/phpearth/docker-php/tree/master/docker/7.4-nginx.Dockerfile) | Nginx 1.14.2, FPM | [![](https://images.microbadger.com/badges/image/phpearth/php:7.4-nginx.svg)](https://microbadger.com/images/phpearth/php:7.4-nginx "Image size") |
+| **PHP 5.6.40**@Alpine 3.5 | [`5.6-nginx`](https://github.com/deck-app/nginx-stack1/blob/master/Dockerfile-5.6) | Nginx 1.12.2, FPM |  |
+| **PHP 7.4.25**@Alpine 3.10 | [`7.4-nginx`](https://github.com/deck-app/nginx-stack1/blob/master/Dockerfile-7.4) | Nginx 1.14.2, FPM | [![](https://images.microbadger.com/badges/image/phpearth/php:7.4-nginx.svg)](https://microbadger.com/images/phpearth/php:7.4-nginx "Image size") |
+| **PHP 8.0.12**@Alpine 3.12 | [`8.0-nginx`](https://github.com/deck-app/nginx-stack1/blob/master/Dockerfile-7.4) | Nginx 1.14.2, FPM | [![](https://images.microbadger.com/badges/image/phpearth/php:7.4-nginx.svg)](https://microbadger.com/images/phpearth/php:7.4-nginx "Image size") |
 
 
 ## Quick usage
