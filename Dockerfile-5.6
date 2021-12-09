@@ -26,4 +26,5 @@ sed -i "s#{DISPLAY}#Off#g" /etc/php5/php.ini \
 ARG XDEBUG
 RUN if [ ${XDEBUG} = true ]; then \
 pecl install xdebug-2.5.5 \
+&& echo "zend_extension=/usr/lib/php5/modules/xdebug.so" >> /etc/php5/php.ini \
 ;fi
