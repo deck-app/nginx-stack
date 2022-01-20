@@ -22,6 +22,13 @@ sed -i "s#{DISPLAY}#Off#g" /etc/php5/php.ini \
 #pecl install mongodb \
 #&& echo "extension=mongodb.so" > /etc/php5/conf.d/mongodb.ini
 
+ARG INSTALL_ADDITIONAL_EXTENSIONS
+RUN if [ -z "$INSTALL_ADDITIONAL_EXTENSIONS" ] ; then \
+echo "No additional PHP extensions added" \
+;else \
+apk add --no-cache ${INSTALL_ADDITIONAL_EXTENSIONS} \
+;fi
+
 #Xdebug enable or disable
 ARG XDEBUG
 RUN if [ ${XDEBUG} = true ]; then \
