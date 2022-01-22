@@ -40,10 +40,10 @@ Add / remove PHP extensions from `./nginx/Dockerfile-{YOUR.PHP.VERSION}`
 ARG DEPS="\
         nginx \
         nginx-mod-http-headers-more \
-        php7.4 \
-        php7.4-phar \
+        php7 \
+        php7-phar \
         ...
-        php7.4-{extension name here}
+        php7-{extension name here}
 ```
 
 #### Rebuilding from terminal
