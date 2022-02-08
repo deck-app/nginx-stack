@@ -45,7 +45,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image nginx php 8.0
-      run:  docker run --rm -t arm64v8/ubuntu unam -m
+      run:  docker run --rm -t arm64v8/ubuntu uname -m
     - name: Build the Docker image nginx php 8.0
       run: docker-compose -f "docker-compose.yml" up -d --build
       env:
