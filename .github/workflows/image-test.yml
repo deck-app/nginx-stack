@@ -47,7 +47,7 @@ jobs:
       matrix:
         # make arm64 deps and x86_64 deps
         include:
-          - { name: "fedora_latest arm64 deps", os: fedora_latest , arch: aarch64 }
+          - { name: "fedora_latest arm64 deps", os: ubuntu18.04 , arch: aarch64 }
           - { name: "ubuntu-latest x86_64 deps", os: ubuntu-latest , arch: x86_64 }
     # strategy:
     #   matrix:
