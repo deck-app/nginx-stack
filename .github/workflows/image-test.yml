@@ -42,7 +42,7 @@ jobs:
 
   Nginx-PHP8-ARM64:
     # name: ${{ matrix.name }}
-    runs-on: [self-hosted, linux, ARM64]
+    runs-on: ubuntu-18.04
     # strategy:
     #   matrix:
     #     # make arm64 deps and x86_64 deps
