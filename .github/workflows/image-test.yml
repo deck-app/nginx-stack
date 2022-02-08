@@ -45,7 +45,7 @@ jobs:
       matrix:
         include:
           - arch: aarch64
-            distro: ubuntu20.04
+            distro: alpine_latest
     runs-on: ${{ matrix.distro }} ${{ matrix.arch }}
     # name: Build on ${{ matrix.distro }} ${{ matrix.arch }}
     # strategy:
