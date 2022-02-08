@@ -41,17 +41,21 @@ jobs:
         sudo rm -rf /tmp/app
 
   Nginx-PHP8-ARM64:
-    runs-on: ubuntu-18.04
-    name: Build on ${{ matrix.distro }} ${{ matrix.arch }}
     strategy:
       matrix:
-        include:
-          - arch: aarch64
-            distro: ubuntu18.04
-          - arch: ppc64le
-            distro: alpine_latest
-          - arch: s390x
-            distro: fedora_latest
+        os:
+          - ubuntu-18.04-arm8
+    runs-on: ${{matrix.os}}
+    # name: Build on ${{ matrix.distro }} ${{ matrix.arch }}
+    # strategy:
+    #   matrix:
+    #     include:
+    #       - arch: aarch64
+    #         distro: ubuntu18.04
+    #       - arch: ppc64le
+    #         distro: alpine_latest
+    #       - arch: s390x
+    #         distro: fedora_latest
     steps:
     - uses: actions/checkout@v2
     # - name: Build the Docker image nginx php 8.0
@@ -61,9 +65,6 @@ jobs:
     #     umane -m
     - name: Build the Docker image nginx php 8.0
       run: docker-compose -f "docker-compose.yml" up -d --build
-      with:
-          arch: ${{ matrix.arch }}
-          distro: ${{ matrix.distro }}
       env:
           PHP_VERSION: "8.0"
           XDEBUG: true
@@ -72,6 +73,8 @@ jobs:
           APP_CODE_PATH_HOST: /tmp/app
     - name: PHP version check
       run : docker exec nginx-stack_nginx_1 php -v
+    - name: ARC version check
+      run : docker exec nginx-stack_nginx_1 uname -a
     - name: ARC version check
       run : docker exec nginx-stack_nginx_1 uname -m
     # - name: Mongodb driver check
