@@ -41,26 +41,36 @@ jobs:
         sudo rm -rf /tmp/app
 
   Nginx-PHP8-ARM64:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
+    name: Build on ${{ matrix.distro }} ${{ matrix.arch }}
+    strategy:
+      matrix:
+        include:
+          - arch: aarch64
+            distro: ubuntu18.04
+          - arch: ppc64le
+            distro: alpine_latest
+          - arch: s390x
+            distro: fedora_latest
     steps:
     - uses: actions/checkout@v2
-    - name: Build the Docker image nginx php 8.0
-      run:  |
-        docker run -t ghcr.io/deck-app/nginx:v8.0@sha256:441acf0005b780d7cb01d7f421eaf4e6324e1c9492f0ebe2d360bb052d2c8510 bash
-        uname -a
-        umane -m
     # - name: Build the Docker image nginx php 8.0
-    #   run: docker-compose -f "docker-compose.yml" up -d --build
-    #   env:
-    #       PHP_VERSION: "8.0"
-    #       XDEBUG: true
-    #       DISPLAY_PHPERROR: true
-    #       SERVER_ROOT:  /var/www/
-    #       APP_CODE_PATH_HOST: /tmp/app
-    # - name: PHP version check
-    #   run : docker exec nginx-stack_nginx_1 php -v
-    # - name: ARC version check
-    #   run : docker exec nginx-stack_nginx_1 uname -m
+    #   run:  |
+    #     docker run -t ghcr.io/deck-app/nginx:v8.0@sha256:441acf0005b780d7cb01d7f421eaf4e6324e1c9492f0ebe2d360bb052d2c8510 bash
+    #     uname -a
+    #     umane -m
+    - name: Build the Docker image nginx php 8.0
+      run: docker-compose -f "docker-compose.yml" up -d --build
+      env:
+          PHP_VERSION: "8.0"
+          XDEBUG: true
+          DISPLAY_PHPERROR: true
+          SERVER_ROOT:  /var/www/
+          APP_CODE_PATH_HOST: /tmp/app
+    - name: PHP version check
+      run : docker exec nginx-stack_nginx_1 php -v
+    - name: ARC version check
+      run : docker exec nginx-stack_nginx_1 uname -m
     # - name: Mongodb driver check
     #   run:  docker exec nginx-stack_nginx_1 php -m | grep mongo
     # - name: Mysql Driver check
