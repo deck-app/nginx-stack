@@ -19,6 +19,7 @@ jobs:
           PHP_VERSION: "8.0"
           XDEBUG: true
           DISPLAY_PHPERROR: true
+          SERVER_ROOT:  /var/www/
           APP_CODE_PATH_HOST: /tmp/app
     - name: PHP version check
       run : docker exec nginx-stack_nginx_1 php -v
@@ -48,6 +49,7 @@ jobs:
           PHP_VERSION: "7.4"
           XDEBUG: true
           DISPLAY_PHPERROR: true
+          SERVER_ROOT:  /var/www/
           APP_CODE_PATH_HOST: /tmp/app
     - name: PHP version check
       run : docker exec nginx-stack_nginx_1 php -v
@@ -77,6 +79,7 @@ jobs:
           PHP_VERSION: "5.6"
           XDEBUG: true
           DISPLAY_PHPERROR: true
+          SERVER_ROOT:  /var/www/
           APP_CODE_PATH_HOST: /tmp/app
     - name: PHP version check
       run : docker exec nginx-stack_nginx_1 php -v
