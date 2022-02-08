@@ -47,8 +47,8 @@ jobs:
       matrix:
         # make arm64 deps and x86_64 deps
         include:
-          - { name: "MacOS 11.0 arm64 deps", os: fedora_latest, macarch: arm64 }
-          - { name: "MacOS 10.9 x86_64 deps", os: ubuntu-latest , macarch: x86_64 }
+          - { name: "fedora_latest arm64 deps", os: fedora_latest , arch: aarch64 }
+          - { name: "ubuntu-latest x86_64 deps", os: ubuntu-latest , arch: x86_64 }
     # strategy:
     #   matrix:
     #     include:
