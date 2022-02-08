@@ -41,14 +41,13 @@ jobs:
         sudo rm -rf /tmp/app
 
   Nginx-PHP8-ARM64:
-    runs-on: [ARM64]
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-      with:
-        arch: aarch64
-        distro: ubuntu20.04
-        run: docker-compose -f "docker-compose.yml" up -d --build
-        env:
+    - name: Build the Docker image nginx php 8.0
+      run:  docker run --rm -t arm64v8/ubuntu unam -m
+      run: docker-compose -f "docker-compose.yml" up -d --build
+      env:
           PHP_VERSION: "8.0"
           XDEBUG: true
           DISPLAY_PHPERROR: true
@@ -56,36 +55,22 @@ jobs:
           APP_CODE_PATH_HOST: /tmp/app
     - name: PHP version check
       run : docker exec nginx-stack_nginx_1 php -v
-    - name: ARC version check
-      run : docker exec nginx-stack_nginx_1 uname -a
-    #   - name: Build the Docker image nginx php 8.0
-    #   run: docker-compose -f "docker-compose.yml" up -d --build
-    #   env:
-    #       PHP_VERSION: "8.0"
-    #       XDEBUG: true
-    #       DISPLAY_PHPERROR: true
-    #       SERVER_ROOT:  /var/www/
-    #       APP_CODE_PATH_HOST: /tmp/app
-    # - name: PHP version check
-    #   run : docker exec nginx-stack_nginx_1 php -v
-    # - name: ARC version check
-    #   run : docker exec nginx-stack_nginx_1 uname -a
-    # - name: Mongodb driver check
-    #   run:  docker exec nginx-stack_nginx_1 php -m | grep mongo
-    # - name: Mysql Driver check
-    #   run: docker exec nginx-stack_nginx_1 php -m | grep mysqli
-    # - name: Composer test
-    #   run: docker exec nginx-stack_nginx_1 composer
-    # - name: Web site Test
-    #   run: |
-    #     docker exec nginx-stack_nginx_1 wget -O /var/www/index.php https://raw.githubusercontent.com/deck-app/stack-preview-screen/main/install/index.html
-    #     sudo curl -I --http2 http://localhost:5647/
-    # - name: Laravel8 test
-    #   run:  docker exec nginx-stack_nginx_1 composer create-project --prefer-dist laravel/laravel:^8.0
-    # - name: Destroy Container and file
-    #   run:  |
-    #     docker-compose down
-    #     sudo rm -rf /tmp/app
+    - name: Mongodb driver check
+      run:  docker exec nginx-stack_nginx_1 php -m | grep mongo
+    - name: Mysql Driver check
+      run: docker exec nginx-stack_nginx_1 php -m | grep mysqli
+    - name: Composer test
+      run: docker exec nginx-stack_nginx_1 composer
+    - name: Web site Test
+      run: |
+        docker exec nginx-stack_nginx_1 wget -O /var/www/index.php https://raw.githubusercontent.com/deck-app/stack-preview-screen/main/install/index.html
+        sudo curl -I --http2 http://localhost:5647/
+    - name: Laravel8 test
+      run:  docker exec nginx-stack_nginx_1 composer create-project --prefer-dist laravel/laravel:^8.0
+    - name: Destroy Container and file
+      run:  |
+        docker-compose down
+        sudo rm -rf /tmp/app
 
   Nginx-PHP7:
     runs-on: ubuntu-latest
