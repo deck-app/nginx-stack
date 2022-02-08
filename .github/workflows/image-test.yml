@@ -41,7 +41,10 @@ jobs:
         sudo rm -rf /tmp/app
 
   Nginx-PHP8-ARM64:
-    runs-on: arm64v8/ubuntu:latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
     steps:
     - uses: actions/checkout@v2
     # - name: Build the Docker image nginx php 8.0
