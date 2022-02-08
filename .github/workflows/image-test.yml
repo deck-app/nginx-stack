@@ -41,7 +41,7 @@ jobs:
         sudo rm -rf /tmp/app
 
   Nginx-PHP8-ARM64:
-    runs-on: [self-hosted, linux, arm64]
+    runs-on: [self-hosted, ubuntu-latest, arm64]
     steps:
     - uses: actions/checkout@v2
     # - name: Build the Docker image nginx php 8.0
