@@ -39,7 +39,9 @@ jobs:
         docker-compose down
         sudo rm -rf /tmp/app
 
-  Nginx and PHP7.4:  
+  Nginx and PHP7.4:
+    runs-on: ubuntu-latest
+    steps:
     - name: Build the Docker image nginx php 7.4
       run: docker-compose -f "docker-compose.yml" up -d --build
       env:
@@ -67,6 +69,8 @@ jobs:
         sudo rm -rf /tmp/app
   
   Nginx and PHP5.6: 
+    runs-on: ubuntu-latest
+    steps:
     - name: Build the Docker image nginx php 5.6
       run: docker-compose -f "docker-compose.yml" up -d --build
       env:
