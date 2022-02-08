@@ -43,10 +43,10 @@ jobs:
   Nginx-PHP8-ARM64:
     strategy:
       matrix:
-        include:
+        os:
           - arch: aarch64
-            distro: alpine_latest
-    runs-on: ${{ matrix.distro }} ${{ matrix.arch }}
+          - distro: ubuntu20.04
+    runs-on: ${{matrix.os}}
     # name: Build on ${{ matrix.distro }} ${{ matrix.arch }}
     # strategy:
     #   matrix:
