@@ -45,7 +45,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-        arch: arm64
+        arch: aarch64
         distro: ubuntu20.04
     - name: Build the Docker image nginx php 8.0
       run: docker-compose -f "docker-compose.yml" up -d --build
@@ -57,6 +57,8 @@ jobs:
           APP_CODE_PATH_HOST: /tmp/app
     - name: PHP version check
       run : docker exec nginx-stack_nginx_1 php -v
+    - name: ARC version check
+      run : docker exec nginx-stack_nginx_1 uname -a
     - name: Mongodb driver check
       run:  docker exec nginx-stack_nginx_1 php -m | grep mongo
     - name: Mysql Driver check
