@@ -41,7 +41,6 @@ jobs:
         sudo rm -rf /tmp/app
 
   Nginx-PHP8-ARM64:
-    deps:
     name: ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
     strategy:
