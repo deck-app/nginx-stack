@@ -9,11 +9,8 @@ on:
     branches: [ master ]
 
 jobs:
-
-  build:
-
+  Nginx and PHP8.0:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image nginx php 8.0
@@ -22,52 +19,74 @@ jobs:
           PHP_VERSION: "8.0"
           XDEBUG: true
           DISPLAY_PHPERROR: true
+          APP_CODE_PATH_HOST: /tmp/app
+    - name: PHP version check
+      run : docker exec nginx-stack_nginx_1 php -v
     - name: Mongodb driver check
-      run:  php -m | grep mongo
+      run:  docker exec nginx-stack_nginx_1 php -m | grep mongo
     - name: Mysql Driver check
-      run: php -m | grep mysqli
+      run: docker exec nginx-stack_nginx_1 php -m | grep mysqli
     - name: Composer test
-      run: composer
-    # - name: Index file downlaod in /var/www and Web site Test
-    #   run: docker-compose -f "docker-compose.yml" up -d --build && sudo wget -O /var/www/index.html https://raw.githubusercontent.com/deck-app/stack-preview-screen/main/install/index.html && sudo curl -I http://localhost:5647/ | grep HTTP
-      # run: docker-compose -f "docker-compose.yml" up -d --build curl http://localhost:5111/
+      run: docker exec nginx-stack_nginx_1 composer
     - name: Web site Test
-      run: curl -I --http2 http://localhost:5647/ | grep HTTP
+      run: |
+        docker exec nginx-stack_nginx_1 echo "<?php phpinfo(); ?>" > /var/www/index.php
+        curl -I --http2 http://localhost:5647/ | grep HTTP
     - name: Laravel8 test
-      run:  composer create-project --prefer-dist laravel/laravel:^8.0
-    
+      run:  docker exec nginx-stack_nginx_1 composer create-project --prefer-dist laravel/laravel:^8.0
+    - name: Destroy Container and file
+      run:  |
+        docker-compose down
+        sudo rm -rf /tmp/app
+
+  Nginx and PHP7.4:  
     - name: Build the Docker image nginx php 7.4
       run: docker-compose -f "docker-compose.yml" up -d --build
       env:
           PHP_VERSION: "7.4"
           XDEBUG: true
           DISPLAY_PHPERROR: true
+          APP_CODE_PATH_HOST: /tmp/app
+    - name: PHP version check
+      run : docker exec nginx-stack_nginx_1 php -v
     - name: Mongodb driver check
-      run:  php -m | grep mongo
+      run:  docker exec nginx-stack_nginx_1 php -m | grep mongo
     - name: Mysql Driver check
-      run: php -m | grep mysqli
+      run: docker exec nginx-stack_nginx_1 php -m | grep mysqli
     - name: Composer test
-      run: composer
-    # - name: Index file downlaod in /var/www and Web site Test
-    #   run: docker-compose -f "docker-compose.yml" up -d --build && sudo wget -O /var/www/index.html https://raw.githubusercontent.com/deck-app/stack-preview-screen/main/install/index.html && sudo curl -I http://localhost:5647/ | grep HTTP
-      # run: docker-compose -f "docker-compose.yml" up -d --build curl http://localhost:5111/
+      run: docker exec nginx-stack_nginx_1 composer
     - name: Web site Test
-      run: curl -I --http2 http://localhost:5647/ | grep HTTP
+      run: |
+        docker exec nginx-stack_nginx_1 echo "<?php phpinfo(); ?>" > /var/www/index.php
+        curl -I --http2 http://localhost:5647/ | grep HTTP
     - name: Laravel8 test
-      run:  composer create-project --prefer-dist laravel/laravel:^8.0 laravel7
-    
+      run:  docker exec nginx-stack_nginx_1 composer create-project --prefer-dist laravel/laravel:^8.0
+    - name: Destroy Container and file
+      run:  |
+        docker-compose down
+        sudo rm -rf /tmp/app
+  
+  Nginx and PHP5.6: 
     - name: Build the Docker image nginx php 5.6
       run: docker-compose -f "docker-compose.yml" up -d --build
       env:
           PHP_VERSION: "5.6"
           XDEBUG: true
           DISPLAY_PHPERROR: true
+          APP_CODE_PATH_HOST: /tmp/app
+    - name: PHP version check
+      run : docker exec nginx-stack_nginx_1 php -v
     - name: Mysql Driver check
-      run: php -m | grep mysqli
+      run: docker exec nginx-stack_nginx_1php -m | grep mysqli
     - name: Composer test
-      run: composer
-    # - name: Index file downlaod in /var/www and Web site Test
-    #   run: docker-compose -f "docker-compose.yml" up -d --build && sudo wget -O /var/www/index.html https://raw.githubusercontent.com/deck-app/stack-preview-screen/main/install/index.html && sudo curl -I http://localhost:5647/ | grep HTTP
-      # run: docker-compose -f "docker-compose.yml" up -d --build curl http://localhost:5111/
+      run: docker exec nginx-stack_nginx_1 composer
     - name: Web site Test
-      run: curl -I --http2 http://localhost:5647/ | grep HTTP
+      run: |
+        docker exec nginx-stack_nginx_1 echo "<?php phpinfo(); ?>" > /var/www/index.php
+        curl -I --http2 http://localhost:5647/ | grep HTTP
+    - name: Laravel8 test
+      run:  docker exec nginx-stack_nginx_1 composer create-project --prefer-dist laravel/laravel:^8.0
+    - name: Destroy Container and file
+      run:  |
+        docker-compose down
+        sudo rm -rf /tmp/app
