@@ -9,7 +9,7 @@ on:
     branches: [ master ]
 
 jobs:
-  Nginx and PHP8.0:
+  Nginx-PHP8.0:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -39,7 +39,7 @@ jobs:
         docker-compose down
         sudo rm -rf /tmp/app
 
-  Nginx and PHP7.4:
+  Nginx-PHP7.4:
     runs-on: ubuntu-latest
     steps:
     - name: Build the Docker image nginx php 7.4
@@ -68,7 +68,7 @@ jobs:
         docker-compose down
         sudo rm -rf /tmp/app
   
-  Nginx and PHP5.6: 
+  Nginx-PHP5.6: 
     runs-on: ubuntu-latest
     steps:
     - name: Build the Docker image nginx php 5.6
