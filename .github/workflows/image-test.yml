@@ -86,7 +86,7 @@ jobs:
     - name: PHP version check
       run : docker exec nginx-stack_nginx_1 php -v
     - name: Mysql Driver check
-      run: docker exec nginx-stack_nginx_1php -m | grep mysqli
+      run: docker exec nginx-stack_nginx_1 php -m | grep mysqli
     - name: Composer test
       run: docker exec nginx-stack_nginx_1 composer
     - name: Web site Test
