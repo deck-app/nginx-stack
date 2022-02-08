@@ -41,14 +41,14 @@ jobs:
         sudo rm -rf /tmp/app
 
   Nginx-PHP8-ARM64:
-    name: ${{ matrix.name }}
-    runs-on: ${{matrix.os}}${{matrix.arch}}
-    strategy:
-      matrix:
-        # make arm64 deps and x86_64 deps
-        include:
-          - { name: "fedora_latest arm64 deps", os: lxd , arch: arm64-graviton2 }
-          - { name: "ubuntu-latest x86_64 deps", os: ubuntu-latest , arch: x86_64 }
+    # name: ${{ matrix.name }}
+    # runs-on: ${{matrix.os}}${{matrix.arch}}
+    # strategy:
+    #   matrix:
+    #     # make arm64 deps and x86_64 deps
+    #     include:
+    #       - { name: "fedora_latest arm64 deps", os: lxd , arch: arm64-graviton2 }
+    #       - { name: "ubuntu-latest x86_64 deps", os: ubuntu-latest , arch: x86_64 }
     # strategy:
     #   matrix:
     #     include:
@@ -80,6 +80,9 @@ jobs:
           DISPLAY_PHPERROR: true
           SERVER_ROOT:  /var/www/
           APP_CODE_PATH_HOST: /tmp/app
+    - uses: docker://multiarch/ubuntu-core:arm64-bionic
+      with:
+        args: 'uname -a'
     - name: PHP version check
       run : docker exec nginx-stack_nginx_1 php -v
     - name: ARC version check
