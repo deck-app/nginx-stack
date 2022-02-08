@@ -41,12 +41,21 @@ jobs:
         sudo rm -rf /tmp/app
 
   Nginx-PHP8-ARM64:
+    deps:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
+        # make arm64 deps and x86_64 deps
         include:
-          - os: linux
-            arch: amd64
-    runs-on: lxd-arm64
+          - { name: "MacOS 11.0 arm64 deps", os: macos-11, macarch: arm64 }
+          - { name: "MacOS 10.9 x86_64 deps", os: macos-10.15 , macarch: x86_64 }
+    # strategy:
+    #   matrix:
+    #     include:
+    #       - os: linux
+    #         arch: amd64
+    # runs-on: lxd-arm64
     # name: Build on ${{ matrix.distro }} ${{ matrix.arch }}
     # strategy:
     #   matrix:
