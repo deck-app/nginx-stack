@@ -41,9 +41,12 @@ jobs:
         sudo rm -rf /tmp/app
 
   Nginx-PHP8-ARM64:
-    runs-on: ubuntu-latest:arm64
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+      with:
+        arch: arm64
+        distro: ubuntu20.04
     - name: Build the Docker image nginx php 8.0
       run: docker-compose -f "docker-compose.yml" up -d --build
       env:
