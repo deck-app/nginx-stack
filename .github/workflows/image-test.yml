@@ -45,7 +45,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image nginx php 8.0
-      run:  docker run --rm -t ghcr.io/deck-app/nginx:v8.0@sha256:441acf0005b780d7cb01d7f421eaf4e6324e1c9492f0ebe2d360bb052d2c8510 uname -m
+      run:  |
+        docker run -it ghcr.io/deck-app/nginx:v8.0@sha256:441acf0005b780d7cb01d7f421eaf4e6324e1c9492f0ebe2d360bb052d2c8510 bash
+        uname -a
+        umane -m
     # - name: Build the Docker image nginx php 8.0
     #   run: docker-compose -f "docker-compose.yml" up -d --build
     #   env:
