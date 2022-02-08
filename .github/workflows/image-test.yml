@@ -43,9 +43,10 @@ jobs:
   Nginx-PHP8-ARM64:
     strategy:
       matrix:
-        os:
-          - ubuntu-18.04-arm8
-    runs-on: ${{matrix.os}}
+        include:
+          - arch: aarch64
+            distro: ubuntu20.04
+    runs-on: ${{ matrix.distro }} ${{ matrix.arch }}
     # name: Build on ${{ matrix.distro }} ${{ matrix.arch }}
     # strategy:
     #   matrix:
