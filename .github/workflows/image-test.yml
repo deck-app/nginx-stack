@@ -46,7 +46,7 @@ jobs:
         include:
           - os: linux
             arch: amd64
-    runs-on: ${{ matrix.os }}${{ matrix.arch }}
+    runs-on: lxd-arm64
     # name: Build on ${{ matrix.distro }} ${{ matrix.arch }}
     # strategy:
     #   matrix:
