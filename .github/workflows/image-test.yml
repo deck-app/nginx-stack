@@ -41,11 +41,11 @@ jobs:
         sudo rm -rf /tmp/app
 
   Nginx-PHP8-ARM64:
-    runs-on: ubuntu-latest
+    runs-on: arm64v8/ubuntu:latest
     steps:
     - uses: actions/checkout@v2
-    - name: Build the Docker image nginx php 8.0
-      run:  docker run --rm -t arm64v8/ubuntu uname -m
+    # - name: Build the Docker image nginx php 8.0
+    #   run:  docker run --rm -t arm64v8/ubuntu uname -m
     - name: Build the Docker image nginx php 8.0
       run: docker-compose -f "docker-compose.yml" up -d --build
       env:
@@ -56,6 +56,8 @@ jobs:
           APP_CODE_PATH_HOST: /tmp/app
     - name: PHP version check
       run : docker exec nginx-stack_nginx_1 php -v
+    - name: ARC version check
+      run : docker exec nginx-stack_nginx_1 uname -m
     - name: Mongodb driver check
       run:  docker exec nginx-stack_nginx_1 php -m | grep mongo
     - name: Mysql Driver check
