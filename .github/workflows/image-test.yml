@@ -69,7 +69,9 @@ jobs:
     - name: Destroy Container 
       run: docker-compose down
     - name: Deleted file
-      run: sudo rm -rft /tmp/app/*
+      run: |
+        echo "password" | sudo -S whoami
+        sudo rm -rf /tmp/app/*
         
 
   # Nginx-PHP7:
