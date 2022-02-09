@@ -66,10 +66,11 @@ jobs:
         curl -i http://localhost:5647/
     - name: Laravel8 test
       run:  docker exec nginxstack_nginx_1 composer create-project --prefer-dist laravel/laravel:^8.0
-    - name: Destroy Container and file
-      run:  |
-        docker-compose down
-        sudo rm -rf /tmp/app
+    - name: Destroy Container 
+      run: docker-compose down
+    - name: Deleted file
+      run: rm -rf /tmp/app/*
+        
 
   # Nginx-PHP7:
   #   runs-on: ubuntu-latest
