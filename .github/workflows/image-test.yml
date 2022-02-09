@@ -42,7 +42,7 @@ jobs:
 
   Nginx-PHP8-ARM64:
     # name: ${{ matrix.name }}
-    runs-on: ubuntu-18.04
+    runs-on: self-hosted
     # strategy:
     #   matrix:
     #     # make arm64 deps and x86_64 deps
@@ -80,9 +80,6 @@ jobs:
           DISPLAY_PHPERROR: true
           SERVER_ROOT:  /var/www/
           APP_CODE_PATH_HOST: /tmp/app
-    - uses: docker://multiarch/ubuntu-core:arm64-bionic
-      with:
-        args: 'uname -a'
     - name: PHP version check
       run : docker exec nginx-stack_nginx_1 php -v
     - name: ARC version check
