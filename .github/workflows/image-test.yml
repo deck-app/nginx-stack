@@ -69,7 +69,7 @@ jobs:
     - name: Destroy Container 
       run: docker-compose down
     - name: Deleted file
-      run: rm -rf /tmp/app/*
+      run: sudo -t rm -rf /tmp/app/*
         
 
   # Nginx-PHP7:
