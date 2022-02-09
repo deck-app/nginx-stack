@@ -63,7 +63,7 @@ jobs:
     - name: Web site Test
       run: |
         docker exec nginxstack_nginx_1 wget -O /var/www/index.php https://raw.githubusercontent.com/deck-app/stack-preview-screen/main/install/index.html
-        sudo curl -I --http2 http://localhost:5647/
+        curl -i http://localhost:5647/
     - name: Laravel8 test
       run:  docker exec nginxstack_nginx_1 composer create-project --prefer-dist laravel/laravel:^8.0
     - name: Destroy Container and file
@@ -124,7 +124,7 @@ jobs:
     - name: Web site Test
       run: |
         docker exec nginxstack_nginx_1 wget -O /var/www/index.php https://raw.githubusercontent.com/deck-app/stack-preview-screen/main/install/index.html
-        sudo curl -I --http2 http://localhost:5647/
+        curl -i http://localhost:5647/
     - name: Laravel8 test
       run:  docker exec nginxstack_nginx_1 composer create-project --prefer-dist laravel/laravel:^8.0
     - name: Destroy Container and file
@@ -179,7 +179,7 @@ jobs:
     - name: Web site Test
       run: |
         docker exec nginxstack_nginx_1 wget -O /var/www/index.php https://raw.githubusercontent.com/deck-app/stack-preview-screen/main/install/index.html
-        sudo curl -I --http2 http://localhost:5647/
+        curl -i http://localhost:5647/
     - name: Destroy Container and file
       run:  |
         docker-compose down
