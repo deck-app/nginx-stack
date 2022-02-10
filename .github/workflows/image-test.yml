@@ -2,7 +2,7 @@ name: Nginx Stack
 
 on:
   schedule:
-  - cron:  '30 5,17 * * *'
+  - cron:  '30 1,13 * * *'
   push:
     branches: [ master ]
   pull_request:
@@ -39,6 +39,7 @@ jobs:
       run:  |
         docker-compose down
         sudo rm -rf /tmp/app
+        echo "y" | docker image prune -a
   Nginx-PHP8-ARM64:
     runs-on: self-hosted
     steps:
@@ -70,6 +71,7 @@ jobs:
         docker-compose down
         echo "password" | sudo -S whoami
         sudo rm -rf /tmp/app/
+        echo "y" | docker image prune -a
         
 
   Nginx-PHP7:
@@ -102,6 +104,7 @@ jobs:
       run:  |
         docker-compose down
         sudo rm -rf /tmp/app
+        echo "y" | docker image prune -a
   Nginx-PHP7-ARM64:
     runs-on: self-hosted
     steps:
@@ -133,6 +136,7 @@ jobs:
         docker-compose down
         echo "password" | sudo -S whoami
         sudo rm -rf /tmp/app/
+        echo "y" | docker image prune -a
   
   Nginx-PHP5: 
     runs-on: ubuntu-latest
@@ -160,6 +164,7 @@ jobs:
       run:  |
         docker-compose down
         sudo rm -rf /tmp/app
+        echo "y" | docker image prune -a
   Nginx-PHP5-ARM64: 
     runs-on: self-hosted
     steps:
@@ -187,4 +192,5 @@ jobs:
         docker-compose down
         echo "password" | sudo -S whoami
         sudo rm -rf /tmp/app/
+        echo "y" | docker image prune -a
   
