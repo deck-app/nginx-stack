@@ -37,7 +37,7 @@ jobs:
       run:  |
         docker-compose down
         sudo rm -rf /tmp/nginx
-        echo "y" | docker image prune -a
+        echo "y" | docker image prune -a 
   Nginx-PHP8-ARM64:
     runs-on: self-hosted
     steps:
