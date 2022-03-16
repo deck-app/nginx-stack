@@ -41,7 +41,7 @@ jobs:
   Nginx-PHP8-ARM64:
     runs-on: self-hosted
     steps:
-    - uses: actions/checkout@v2
+    - checkout: self
     - name: Build the Docker image nginx php 8.0
       run: docker-compose -f "docker-compose.yml" up -d --build
       env:
