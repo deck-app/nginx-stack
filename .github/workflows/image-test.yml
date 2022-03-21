@@ -27,6 +27,10 @@ jobs:
       run:  docker exec nginx-stack_nginx_1 php -m | grep mongo
     - name: Mysql Driver check
       run: docker exec nginx-stack_nginx_1 php -m | grep mysqli
+    - name: Git Version check
+      run: docker exec nginx-stack_nginx_1 git --version
+    - name: Curl Version check
+      run: docker exec nginx-stack_nginx_1 curl --version
     - name: Composer test
       run: docker exec nginx-stack_nginx_1 composer
     - name: Web site Test
@@ -56,6 +60,10 @@ jobs:
       run:  docker exec nginx-stack-nginx-1 php -m | grep mongo
     - name: Mysql Driver check
       run: docker exec nginx-stack-nginx-1 php -m | grep mysqli
+    - name: Git Version check
+      run: docker exec nginx-stack-nginx-1 git --version
+    - name: Curl Version check
+      run: docker exec nginx-stack-nginx-1 curl --version
     - name: Composer test
       run: docker exec nginx-stack-nginx-1 composer
     - name: Web site Test
@@ -89,6 +97,10 @@ jobs:
       run:  docker exec nginx-stack_nginx_1 php -m | grep mongo
     - name: Mysql Driver check
       run: docker exec nginx-stack_nginx_1 php -m | grep mysqli
+    - name: Git Version check
+      run: docker exec nginx-stack_nginx_1 git --version
+    - name: Curl Version check
+      run: docker exec nginx-stack_nginx_1 curl --version
     - name: Composer test
       run: docker exec nginx-stack_nginx_1 composer
     - name: Web site Test
@@ -118,6 +130,10 @@ jobs:
       run:  docker exec nginx-stack-nginx-1 php -m | grep mongo
     - name: Mysql Driver check
       run: docker exec nginx-stack-nginx-1 php -m | grep mysqli
+    - name: Git Version check
+      run: docker exec nginx-stack-nginx-1 git --version
+    - name: Curl Version check
+      run: docker exec nginx-stack-nginx-1 curl --version
     - name: Composer test
       run: docker exec nginx-stack-nginx-1 composer
     - name: Web site Test
@@ -150,6 +166,10 @@ jobs:
       run : docker exec nginx-stack_nginx_1 php -v
     - name: Mysql Driver check
       run: docker exec nginx-stack_nginx_1 php -m | grep mysqli
+    - name: Git Version check
+      run: docker exec nginx-stack_nginx_1 git --version
+    - name: Curl Version check
+      run: docker exec nginx-stack_nginx_1 curl --version
     - name: Composer test
       run: docker exec nginx-stack_nginx_1 composer
     - name: Web site Test
@@ -177,6 +197,10 @@ jobs:
       run : docker exec nginx-stack-nginx-1 php -v
     - name: Mysql Driver check
       run: docker exec nginx-stack-nginx-1 php -m | grep mysqli
+    - name: Git Version check
+      run: docker exec nginx-stack-nginx-1 git --version
+    - name: Curl Version check
+      run: docker exec nginx-stack-nginx-1 curl --version
     - name: Composer test
       run: docker exec nginx-stack-nginx-1 composer
     - name: Web site Test
