@@ -77,7 +77,6 @@ jobs:
         echo "password" | sudo -S whoami
         sudo rm -rf /tmp/nginx/
 
-jobs:
   Nginx-PHP8-AMD64:
     runs-on: ubuntu-latest
     steps:
@@ -146,8 +145,6 @@ jobs:
         echo "password" | sudo -S whoami
         sudo rm -rf /tmp/nginx/
         
-        
-
   Nginx-PHP7-AMD64:
     runs-on: ubuntu-latest
     steps:
