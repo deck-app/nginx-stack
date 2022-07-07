@@ -38,6 +38,7 @@ ARG GROUP_ID
 RUN apk --no-cache add shadow
 RUN usermod -u ${USER_ID} myuser && groupmod -g ${GROUP_ID} myuser
 RUN sed -i 's/user nginx/user myuser/g' /etc/nginx/nginx.conf
+RUN sed -i 's/nobody/myuser/g' /etc/php8/php-fpm.d/www.conf
 
 #Xdebug enable or disable
 ARG XDEBUG
