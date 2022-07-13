@@ -32,8 +32,19 @@ apk add --no-cache ${INSTALL_ADDITIONAL_EXTENSIONS} \
 ## Linux permission issue
 ARG USER_ID
 ARG GROUP_ID
-RUN apk --no-cache add shadow
+RUN apk --no-cache add shadow sudo
 RUN usermod -u ${USER_ID} nobody && groupmod -g ${GROUP_ID} nobody
+
+COPY login.sh /root/.bashrc
+#RUN chsh -s /bin/bash
+#COPY profile /etc/profile
+COPY www.conf /etc/php5/fpm.d/www.conf
+RUN echo "#!/bin/sh \
+         source ~/.profile \
+         source ~/.bashrc" >> /root/.bash_profile
+
+# sudo command without password
+RUN echo "nobody ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 #Xdebug enable or disable
 ARG XDEBUG
