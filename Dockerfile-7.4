@@ -32,9 +32,6 @@ ARG GROUP_ID
 RUN apk --no-cache add shadow sudo
 RUN usermod -u ${USER_ID} nobody && groupmod -g ${GROUP_ID} nobody
 
-COPY login.sh /etc/profile.d/login.sh
-RUN chmod +x /etc/profile.d/login.sh
-
 # sudo command without password
 RUN echo "nobody ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
@@ -44,3 +41,17 @@ RUN if [ ${XDEBUG} = true ]; then \
 apk add php7-pecl-xdebug \
 && echo "zend_extension=xdebug" >> /etc/php7/php.ini \
 ;fi
+
+## nobody permission issue
+COPY www.conf /etc/php7/php-fpm.d/www.conf
+COPY nginx.conf /etc/nginx/nginx.conf
+RUN touch /env
+RUN chown -R nobody:nobody /env
+RUN chown -R nobody:nobody /sbin/
+RUN chown -R nobody:nobody /etc/php7/
+RUN chown -R nobody:nobody /etc/service/
+RUN chown -R nobody:nobody /var/run/
+RUN chown -R nobody:nobody /var/log/
+RUN chown -R nobody:nobody /var/lib/nginx
+RUN chown -R nobody:nobody /etc/nginx
+USER nobody
