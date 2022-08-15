@@ -69,7 +69,7 @@ jobs:
       run: docker exec nginx-stack-nginx-1 composer
     - name: Web site Test
       run: |
-        docker exec nginx-stack-nginx-1 wget -O /var/www/index.php https://raw.githubusercontent.com/deck-app/stack-preview-screen/main/install/index.html
+        sudo wget -O /tmp/nginx/index.php https://raw.githubusercontent.com/deck-app/stack-preview-screen/main/install/index.html
         curl -i http://localhost:5647/
     - name: Destroy Container 
       run: |
