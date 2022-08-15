@@ -58,9 +58,9 @@ jobs:
     - name: PHP version check
       run : docker exec nginx-stack-nginx-1 php -v
     - name: Mongodb driver check
-      run:  docker exec nginx-stack-nginx-1 php -m | grep mongo
-    - name: Mysql Driver check
-      run: docker exec nginx-stack-nginx-1 php -m | grep mysqli
+      run:  docker exec nginx-stack-nginx-1 php -m
+    # - name: Mysql Driver check
+    #   run: docker exec nginx-stack-nginx-1 php -m | grep mysqli
     - name: Git Version check
       run: docker exec nginx-stack-nginx-1 git --version
     - name: Curl Version check
@@ -78,210 +78,210 @@ jobs:
         echo "password" | sudo -S whoami
         sudo rm -rf /tmp/nginx/
 
-  Nginx-PHP8-AMD64:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Build the Docker image nginx php 8.0
-      run: docker-compose -f "docker-compose.yml" up -d --build
-      env:
-          PHP_VERSION: "8.0"
-          XDEBUG: true
-          DISPLAY_PHPERROR: true
-          SERVER_ROOT:  /var/www/
-          APP_CODE_PATH_HOST: /tmp/nginx
-    - name: PHP version check
-      run : docker exec nginx-stack_nginx_1 php -v
-    - name: Mongodb driver check
-      run:  docker exec nginx-stack_nginx_1 php -m | grep mongo
-    - name: Mysql Driver check
-      run: docker exec nginx-stack_nginx_1 php -m | grep mysqli
-    - name: Git Version check
-      run: docker exec nginx-stack_nginx_1 git --version
-    - name: Curl Version check
-      run: docker exec nginx-stack_nginx_1 curl --version
-    - name: Composer test
-      run: docker exec nginx-stack_nginx_1 composer
-    - name: Web site Test
-      run: |
-        docker exec nginx-stack_nginx_1 sudo wget -O /var/www/index.php https://raw.githubusercontent.com/deck-app/stack-preview-screen/main/install/index.html
-        sudo curl -I --http2 http://localhost:5647/
-    - name: Destroy Container and file
-      run:  |
-        docker-compose down
-        sudo rm -rf /tmp/nginx
-        echo "y" | docker image prune -a 
-  Nginx-PHP8-ARM64:
-    runs-on: self-hosted
-    steps:
-    - uses: actions/checkout@v2
-    # - checkout: self
-    - name: Build the Docker image nginx php 8.0
-      run: docker-compose -f "docker-compose.yml" up -d --build
-      env:
-          PHP_VERSION: "8.0"
-          XDEBUG: true
-          DISPLAY_PHPERROR: true
-          SERVER_ROOT:  /var/www/
-          APP_CODE_PATH_HOST: /tmp/nginx
-    - name: PHP version check
-      run : docker exec nginx-stack-nginx-1 php -v
-    - name: Mongodb driver check
-      run:  docker exec nginx-stack-nginx-1 php -m | grep mongo
-    - name: Mysql Driver check
-      run: docker exec nginx-stack-nginx-1 php -m | grep mysqli
-    - name: Git Version check
-      run: docker exec nginx-stack-nginx-1 git --version
-    - name: Curl Version check
-      run: docker exec nginx-stack-nginx-1 curl --version
-    - name: Composer test
-      run: docker exec nginx-stack-nginx-1 composer
-    - name: Web site Test
-      run: |
-        docker exec nginx-stack-nginx-1 sudo wget -O /var/www/index.php https://raw.githubusercontent.com/deck-app/stack-preview-screen/main/install/index.html
-        curl -i http://localhost:5647/
-    - name: Destroy Container 
-      run: |
-        docker-compose down
-        echo "y" | docker system prune -a
-        echo "password" | sudo -S whoami
-        sudo rm -rf /tmp/nginx/
+  # Nginx-PHP8-AMD64:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - name: Build the Docker image nginx php 8.0
+  #     run: docker-compose -f "docker-compose.yml" up -d --build
+  #     env:
+  #         PHP_VERSION: "8.0"
+  #         XDEBUG: true
+  #         DISPLAY_PHPERROR: true
+  #         SERVER_ROOT:  /var/www/
+  #         APP_CODE_PATH_HOST: /tmp/nginx
+  #   - name: PHP version check
+  #     run : docker exec nginx-stack_nginx_1 php -v
+  #   - name: Mongodb driver check
+  #     run:  docker exec nginx-stack_nginx_1 php -m | grep mongo
+  #   - name: Mysql Driver check
+  #     run: docker exec nginx-stack_nginx_1 php -m | grep mysqli
+  #   - name: Git Version check
+  #     run: docker exec nginx-stack_nginx_1 git --version
+  #   - name: Curl Version check
+  #     run: docker exec nginx-stack_nginx_1 curl --version
+  #   - name: Composer test
+  #     run: docker exec nginx-stack_nginx_1 composer
+  #   - name: Web site Test
+  #     run: |
+  #       docker exec nginx-stack_nginx_1 sudo wget -O /var/www/index.php https://raw.githubusercontent.com/deck-app/stack-preview-screen/main/install/index.html
+  #       sudo curl -I --http2 http://localhost:5647/
+  #   - name: Destroy Container and file
+  #     run:  |
+  #       docker-compose down
+  #       sudo rm -rf /tmp/nginx
+  #       echo "y" | docker image prune -a 
+  # Nginx-PHP8-ARM64:
+  #   runs-on: self-hosted
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   # - checkout: self
+  #   - name: Build the Docker image nginx php 8.0
+  #     run: docker-compose -f "docker-compose.yml" up -d --build
+  #     env:
+  #         PHP_VERSION: "8.0"
+  #         XDEBUG: true
+  #         DISPLAY_PHPERROR: true
+  #         SERVER_ROOT:  /var/www/
+  #         APP_CODE_PATH_HOST: /tmp/nginx
+  #   - name: PHP version check
+  #     run : docker exec nginx-stack-nginx-1 php -v
+  #   - name: Mongodb driver check
+  #     run:  docker exec nginx-stack-nginx-1 php -m | grep mongo
+  #   - name: Mysql Driver check
+  #     run: docker exec nginx-stack-nginx-1 php -m | grep mysqli
+  #   - name: Git Version check
+  #     run: docker exec nginx-stack-nginx-1 git --version
+  #   - name: Curl Version check
+  #     run: docker exec nginx-stack-nginx-1 curl --version
+  #   - name: Composer test
+  #     run: docker exec nginx-stack-nginx-1 composer
+  #   - name: Web site Test
+  #     run: |
+  #       docker exec nginx-stack-nginx-1 sudo wget -O /var/www/index.php https://raw.githubusercontent.com/deck-app/stack-preview-screen/main/install/index.html
+  #       curl -i http://localhost:5647/
+  #   - name: Destroy Container 
+  #     run: |
+  #       docker-compose down
+  #       echo "y" | docker system prune -a
+  #       echo "password" | sudo -S whoami
+  #       sudo rm -rf /tmp/nginx/
         
-  Nginx-PHP7-AMD64:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Build the Docker image nginx php 7.4
-      run: docker-compose -f "docker-compose.yml" up -d --build
-      env:
-          PHP_VERSION: "7.4"
-          XDEBUG: true
-          DISPLAY_PHPERROR: true
-          SERVER_ROOT:  /var/www/
-          APP_CODE_PATH_HOST: /tmp/nginx
-    - name: PHP version check
-      run : docker exec nginx-stack_nginx_1 php -v
-    - name: Mongodb driver check
-      run:  docker exec nginx-stack_nginx_1 php -m | grep mongo
-    - name: Mysql Driver check
-      run: docker exec nginx-stack_nginx_1 php -m | grep mysqli
-    - name: Git Version check
-      run: docker exec nginx-stack_nginx_1 git --version
-    - name: Curl Version check
-      run: docker exec nginx-stack_nginx_1 curl --version
-    - name: Composer test
-      run: docker exec nginx-stack_nginx_1 composer
-    - name: Web site Test
-      run: |
-        docker exec nginx-stack_nginx_1 sudo wget -O /var/www/index.php https://raw.githubusercontent.com/deck-app/stack-preview-screen/main/install/index.html
-        sudo curl -I --http2 http://localhost:5647/
-    - name: Destroy Container and file
-      run:  |
-        docker-compose down
-        sudo rm -rf /tmp/nginx
-        echo "y" | docker image prune -a
-  Nginx-PHP7-ARM64:
-    runs-on: self-hosted
-    steps:
-    - uses: actions/checkout@v2
-    # - uses: actions/checkout@v2
-    - name: Build the Docker image nginx php 7.4
-      run: docker-compose -f "docker-compose.yml" up -d --build
-      env:
-          PHP_VERSION: "7.4"
-          XDEBUG: true
-          DISPLAY_PHPERROR: true
-          SERVER_ROOT:  /var/www/
-          APP_CODE_PATH_HOST: /tmp/nginx
-    - name: PHP version check
-      run : docker exec nginx-stack-nginx-1 php -v
-    - name: Mongodb driver check
-      run:  docker exec nginx-stack-nginx-1 php -m | grep mongo
-    - name: Mysql Driver check
-      run: docker exec nginx-stack-nginx-1 php -m | grep mysqli
-    - name: Git Version check
-      run: docker exec nginx-stack-nginx-1 git --version
-    - name: Curl Version check
-      run: docker exec nginx-stack-nginx-1 curl --version
-    - name: Composer test
-      run: docker exec nginx-stack-nginx-1 composer
-    - name: Web site Test
-      run: |
-        docker exec nginx-stack-nginx-1 sudo wget -O /var/www/index.php https://raw.githubusercontent.com/deck-app/stack-preview-screen/main/install/index.html
-        curl -i http://localhost:5647/
-    - name: Laravel8 test
-      run:  docker exec nginx-stack-nginx-1 composer create-project --prefer-dist laravel/laravel:^8.0
-    - name: Destroy Container and file
-      run:  |
-        docker-compose down
-        echo "y" | docker system prune -a
-        echo "password" | sudo -S whoami
-        sudo rm -rf /tmp/nginx/
+  # Nginx-PHP7-AMD64:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - name: Build the Docker image nginx php 7.4
+  #     run: docker-compose -f "docker-compose.yml" up -d --build
+  #     env:
+  #         PHP_VERSION: "7.4"
+  #         XDEBUG: true
+  #         DISPLAY_PHPERROR: true
+  #         SERVER_ROOT:  /var/www/
+  #         APP_CODE_PATH_HOST: /tmp/nginx
+  #   - name: PHP version check
+  #     run : docker exec nginx-stack_nginx_1 php -v
+  #   - name: Mongodb driver check
+  #     run:  docker exec nginx-stack_nginx_1 php -m | grep mongo
+  #   - name: Mysql Driver check
+  #     run: docker exec nginx-stack_nginx_1 php -m | grep mysqli
+  #   - name: Git Version check
+  #     run: docker exec nginx-stack_nginx_1 git --version
+  #   - name: Curl Version check
+  #     run: docker exec nginx-stack_nginx_1 curl --version
+  #   - name: Composer test
+  #     run: docker exec nginx-stack_nginx_1 composer
+  #   - name: Web site Test
+  #     run: |
+  #       docker exec nginx-stack_nginx_1 sudo wget -O /var/www/index.php https://raw.githubusercontent.com/deck-app/stack-preview-screen/main/install/index.html
+  #       sudo curl -I --http2 http://localhost:5647/
+  #   - name: Destroy Container and file
+  #     run:  |
+  #       docker-compose down
+  #       sudo rm -rf /tmp/nginx
+  #       echo "y" | docker image prune -a
+  # Nginx-PHP7-ARM64:
+  #   runs-on: self-hosted
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   # - uses: actions/checkout@v2
+  #   - name: Build the Docker image nginx php 7.4
+  #     run: docker-compose -f "docker-compose.yml" up -d --build
+  #     env:
+  #         PHP_VERSION: "7.4"
+  #         XDEBUG: true
+  #         DISPLAY_PHPERROR: true
+  #         SERVER_ROOT:  /var/www/
+  #         APP_CODE_PATH_HOST: /tmp/nginx
+  #   - name: PHP version check
+  #     run : docker exec nginx-stack-nginx-1 php -v
+  #   - name: Mongodb driver check
+  #     run:  docker exec nginx-stack-nginx-1 php -m | grep mongo
+  #   - name: Mysql Driver check
+  #     run: docker exec nginx-stack-nginx-1 php -m | grep mysqli
+  #   - name: Git Version check
+  #     run: docker exec nginx-stack-nginx-1 git --version
+  #   - name: Curl Version check
+  #     run: docker exec nginx-stack-nginx-1 curl --version
+  #   - name: Composer test
+  #     run: docker exec nginx-stack-nginx-1 composer
+  #   - name: Web site Test
+  #     run: |
+  #       docker exec nginx-stack-nginx-1 sudo wget -O /var/www/index.php https://raw.githubusercontent.com/deck-app/stack-preview-screen/main/install/index.html
+  #       curl -i http://localhost:5647/
+  #   - name: Laravel8 test
+  #     run:  docker exec nginx-stack-nginx-1 composer create-project --prefer-dist laravel/laravel:^8.0
+  #   - name: Destroy Container and file
+  #     run:  |
+  #       docker-compose down
+  #       echo "y" | docker system prune -a
+  #       echo "password" | sudo -S whoami
+  #       sudo rm -rf /tmp/nginx/
         
   
-  Nginx-PHP5-AMD64: 
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Build the Docker image nginx php 5.6
-      run: docker-compose -f "docker-compose.yml" up -d --build
-      env:
-          PHP_VERSION: "5.6"
-          XDEBUG: true
-          DISPLAY_PHPERROR: true
-          SERVER_ROOT:  /var/www/
-          APP_CODE_PATH_HOST: /tmp/nginx
-    - name: PHP version check
-      run : docker exec nginx-stack_nginx_1 php -v
-    - name: Mysql Driver check
-      run: docker exec nginx-stack_nginx_1 php -m | grep mysqli
-    - name: Git Version check
-      run: docker exec nginx-stack_nginx_1 git --version
-    - name: Curl Version check
-      run: docker exec nginx-stack_nginx_1 curl --version
-    - name: Composer test
-      run: docker exec nginx-stack_nginx_1 composer
-    - name: Web site Test
-      run: |
-        docker exec nginx-stack_nginx_1 sudo wget -O /var/www/index.php https://raw.githubusercontent.com/deck-app/stack-preview-screen/main/install/index.html
-        sudo curl -I --http2 http://localhost:5647/
-    - name: Destroy Container and file
-      run:  |
-        docker-compose down
-        sudo rm -rf /tmp/nginx
-        echo "y" | docker image prune -a
-  Nginx-PHP5-ARM64: 
-    runs-on: self-hosted
-    steps:
-    - uses: actions/checkout@v2
-    # - uses: actions/checkout@v2
-    - name: Build the Docker image nginx php 5.6
-      run: docker-compose -f "docker-compose.yml" up -d --build
-      env:
-          PHP_VERSION: "5.6"
-          XDEBUG: true
-          DISPLAY_PHPERROR: true
-          SERVER_ROOT:  /var/www/
-          APP_CODE_PATH_HOST: /tmp/nginx
-    - name: PHP version check
-      run : docker exec nginx-stack-nginx-1 php -v
-    - name: Mysql Driver check
-      run: docker exec nginx-stack-nginx-1 php -m | grep mysqli
-    - name: Git Version check
-      run: docker exec nginx-stack-nginx-1 git --version
-    - name: Curl Version check
-      run: docker exec nginx-stack-nginx-1 curl --version
-    - name: Composer test
-      run: docker exec nginx-stack-nginx-1 composer
-    - name: Web site Test
-      run: |
-        docker exec nginx-stack-nginx-1 sudo wget -O /var/www/index.php https://raw.githubusercontent.com/deck-app/stack-preview-screen/main/install/index.html
-        curl -i http://localhost:5647/
-    - name: Destroy Container and file
-      run:  |
-        docker-compose down
-        echo "y" | docker system prune -a
-        echo "password" | sudo -S whoami
-        sudo rm -rf /tmp/nginx/
+  # Nginx-PHP5-AMD64: 
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - name: Build the Docker image nginx php 5.6
+  #     run: docker-compose -f "docker-compose.yml" up -d --build
+  #     env:
+  #         PHP_VERSION: "5.6"
+  #         XDEBUG: true
+  #         DISPLAY_PHPERROR: true
+  #         SERVER_ROOT:  /var/www/
+  #         APP_CODE_PATH_HOST: /tmp/nginx
+  #   - name: PHP version check
+  #     run : docker exec nginx-stack_nginx_1 php -v
+  #   - name: Mysql Driver check
+  #     run: docker exec nginx-stack_nginx_1 php -m | grep mysqli
+  #   - name: Git Version check
+  #     run: docker exec nginx-stack_nginx_1 git --version
+  #   - name: Curl Version check
+  #     run: docker exec nginx-stack_nginx_1 curl --version
+  #   - name: Composer test
+  #     run: docker exec nginx-stack_nginx_1 composer
+  #   - name: Web site Test
+  #     run: |
+  #       docker exec nginx-stack_nginx_1 sudo wget -O /var/www/index.php https://raw.githubusercontent.com/deck-app/stack-preview-screen/main/install/index.html
+  #       sudo curl -I --http2 http://localhost:5647/
+  #   - name: Destroy Container and file
+  #     run:  |
+  #       docker-compose down
+  #       sudo rm -rf /tmp/nginx
+  #       echo "y" | docker image prune -a
+  # Nginx-PHP5-ARM64: 
+  #   runs-on: self-hosted
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   # - uses: actions/checkout@v2
+  #   - name: Build the Docker image nginx php 5.6
+  #     run: docker-compose -f "docker-compose.yml" up -d --build
+  #     env:
+  #         PHP_VERSION: "5.6"
+  #         XDEBUG: true
+  #         DISPLAY_PHPERROR: true
+  #         SERVER_ROOT:  /var/www/
+  #         APP_CODE_PATH_HOST: /tmp/nginx
+  #   - name: PHP version check
+  #     run : docker exec nginx-stack-nginx-1 php -v
+  #   - name: Mysql Driver check
+  #     run: docker exec nginx-stack-nginx-1 php -m | grep mysqli
+  #   - name: Git Version check
+  #     run: docker exec nginx-stack-nginx-1 git --version
+  #   - name: Curl Version check
+  #     run: docker exec nginx-stack-nginx-1 curl --version
+  #   - name: Composer test
+  #     run: docker exec nginx-stack-nginx-1 composer
+  #   - name: Web site Test
+  #     run: |
+  #       docker exec nginx-stack-nginx-1 sudo wget -O /var/www/index.php https://raw.githubusercontent.com/deck-app/stack-preview-screen/main/install/index.html
+  #       curl -i http://localhost:5647/
+  #   - name: Destroy Container and file
+  #     run:  |
+  #       docker-compose down
+  #       echo "y" | docker system prune -a
+  #       echo "password" | sudo -S whoami
+  #       sudo rm -rf /tmp/nginx/
         
   
