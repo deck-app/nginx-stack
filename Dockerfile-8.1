@@ -29,7 +29,7 @@ apk add --no-cache ${INSTALL_ADDITIONAL_EXTENSIONS} \
 ## Linux permission issue
 ARG USER_ID
 ARG GROUP_ID
-RUN apk --no-cache add shadow sudo
+RUN apk --no-cache add shadow sudo php81-pecl-mongodb
 RUN usermod -u ${USER_ID} nobody && groupmod -g ${GROUP_ID} nobody
 
 # sudo command without password
