@@ -45,6 +45,7 @@ jobs:
   Nginx-PHP81-ARM64:
     runs-on: self-hosted
     steps:
+    - uses: actions/checkout@v2
     # - checkout: self
     - name: Build the Docker image nginx php 8.1
       run: docker-compose -f "docker-compose.yml" up -d --build
@@ -113,6 +114,7 @@ jobs:
   Nginx-PHP8-ARM64:
     runs-on: self-hosted
     steps:
+    - uses: actions/checkout@v2
     # - checkout: self
     - name: Build the Docker image nginx php 8.0
       run: docker-compose -f "docker-compose.yml" up -d --build
@@ -181,6 +183,7 @@ jobs:
   Nginx-PHP7-ARM64:
     runs-on: self-hosted
     steps:
+    - uses: actions/checkout@v2
     # - uses: actions/checkout@v2
     - name: Build the Docker image nginx php 7.4
       run: docker-compose -f "docker-compose.yml" up -d --build
@@ -250,6 +253,7 @@ jobs:
   Nginx-PHP5-ARM64: 
     runs-on: self-hosted
     steps:
+    - uses: actions/checkout@v2
     # - uses: actions/checkout@v2
     - name: Build the Docker image nginx php 5.6
       run: docker-compose -f "docker-compose.yml" up -d --build
