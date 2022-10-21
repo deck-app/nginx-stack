@@ -56,17 +56,17 @@ jobs:
           SERVER_ROOT:  /var/www/
           APP_CODE_PATH_HOST: /tmp/nginx
     - name: PHP version check
-      run : docker exec nginx-stack-nginx-1 php -v
+      run : docker exec nginx-stack_nginx_1 php -v
     - name: Mongodb driver check
-      run:  docker exec nginx-stack-nginx-1 php -m
+      run:  docker exec nginx-stack_nginx_1 php -m
     - name: Mysql Driver check
-      run: docker exec nginx-stack-nginx-1 php -m | grep mysqli
+      run: docker exec nginx-stack_nginx_1 php -m | grep mysqli
     - name: Git Version check
-      run: docker exec nginx-stack-nginx-1 git --version
+      run: docker exec nginx-stack_nginx_1 git --version
     - name: Curl Version check
-      run: docker exec nginx-stack-nginx-1 curl --version
+      run: docker exec nginx-stack_nginx_1 curl --version
     - name: Composer test
-      run: docker exec nginx-stack-nginx-1 composer
+      run: docker exec nginx-stack_nginx_1 composer
     - name: Web site Test
       run: |
         sudo wget -O /tmp/nginx/index.php https://raw.githubusercontent.com/deck-app/stack-preview-screen/main/install/index.html
@@ -125,17 +125,17 @@ jobs:
           SERVER_ROOT:  /var/www/
           APP_CODE_PATH_HOST: /tmp/nginx
     - name: PHP version check
-      run : docker exec nginx-stack-nginx-1 php -v
+      run : docker exec nginx-stack_nginx_1 php -v
     - name: Mongodb driver check
-      run:  docker exec nginx-stack-nginx-1 php -m | grep mongo
+      run:  docker exec nginx-stack_nginx_1 php -m | grep mongo
     - name: Mysql Driver check
-      run: docker exec nginx-stack-nginx-1 php -m | grep mysqli
+      run: docker exec nginx-stack_nginx_1 php -m | grep mysqli
     - name: Git Version check
-      run: docker exec nginx-stack-nginx-1 git --version
+      run: docker exec nginx-stack_nginx_1 git --version
     - name: Curl Version check
-      run: docker exec nginx-stack-nginx-1 curl --version
+      run: docker exec nginx-stack_nginx_1 curl --version
     - name: Composer test
-      run: docker exec nginx-stack-nginx-1 composer
+      run: docker exec nginx-stack_nginx_1 composer
     - name: Web site Test
       run: |
         sudo wget -O /tmp/nginx/index.php https://raw.githubusercontent.com/deck-app/stack-preview-screen/main/install/index.html
@@ -194,23 +194,23 @@ jobs:
           SERVER_ROOT:  /var/www/
           APP_CODE_PATH_HOST: /tmp/nginx
     - name: PHP version check
-      run : docker exec nginx-stack-nginx-1 php -v
+      run : docker exec nginx-stack_nginx_1 php -v
     - name: Mongodb driver check
-      run:  docker exec nginx-stack-nginx-1 php -m | grep mongo
+      run:  docker exec nginx-stack_nginx_1 php -m | grep mongo
     - name: Mysql Driver check
-      run: docker exec nginx-stack-nginx-1 php -m | grep mysqli
+      run: docker exec nginx-stack_nginx_1 php -m | grep mysqli
     - name: Git Version check
-      run: docker exec nginx-stack-nginx-1 git --version
+      run: docker exec nginx-stack_nginx_1 git --version
     - name: Curl Version check
-      run: docker exec nginx-stack-nginx-1 curl --version
+      run: docker exec nginx-stack_nginx_1 curl --version
     - name: Composer test
-      run: docker exec nginx-stack-nginx-1 composer
+      run: docker exec nginx-stack_nginx_1 composer
     - name: Web site Test
       run: |
         sudo wget -O /tmp/nginx/index.php https://raw.githubusercontent.com/deck-app/stack-preview-screen/main/install/index.html
         curl -i http://localhost:5647/
     - name: Laravel8 test
-      run:  docker exec nginx-stack-nginx-1 sudo composer create-project --prefer-dist laravel/laravel:^8.0
+      run:  docker exec nginx-stack_nginx_1 sudo composer create-project --prefer-dist laravel/laravel:^8.0
     - name: Destroy Container and file
       run:  |
         docker-compose down
@@ -264,15 +264,15 @@ jobs:
           SERVER_ROOT:  /var/www/
           APP_CODE_PATH_HOST: /tmp/nginx
     - name: PHP version check
-      run : docker exec nginx-stack-nginx-1 php -v
+      run : docker exec nginx-stack_nginx_1 php -v
     - name: Mysql Driver check
-      run: docker exec nginx-stack-nginx-1 php -m | grep mysqli
+      run: docker exec nginx-stack_nginx_1 php -m | grep mysqli
     - name: Git Version check
-      run: docker exec nginx-stack-nginx-1 git --version
+      run: docker exec nginx-stack_nginx_1 git --version
     - name: Curl Version check
-      run: docker exec nginx-stack-nginx-1 curl --version
+      run: docker exec nginx-stack_nginx_1 curl --version
     - name: Composer test
-      run: docker exec nginx-stack-nginx-1 composer
+      run: docker exec nginx-stack_nginx_1 composer
     - name: Web site Test
       run: |
         sudo wget -O /tmp/nginx/index.php https://raw.githubusercontent.com/deck-app/stack-preview-screen/main/install/index.html
