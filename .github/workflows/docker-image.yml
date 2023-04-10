@@ -21,7 +21,6 @@ jobs:
           XDEBUG: true
           DISPLAY_PHPERROR: true
     
-    - uses: actions/checkout@v2
     - name: Build the Docker image with php7.1
       run: docker-compose build
       env:
@@ -29,7 +28,6 @@ jobs:
           XDEBUG: true
           DISPLAY_PHPERROR: true
     
-    - uses: actions/checkout@v2
     - name: Build the Docker image with php7.2
       run: docker-compose build
       env:
