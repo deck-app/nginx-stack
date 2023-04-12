@@ -2,7 +2,7 @@ name: Nginx Stack
 
 on:
   schedule:
-  - cron:  '30 1 * * *'
+  - cron:  '31 22 * * *'
   push:
     branches: [ master ]
   pull_request:
