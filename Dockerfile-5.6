@@ -9,25 +9,20 @@ ARG SERVER_ROOT
 RUN sed -i "s#{SERVER_ROOT}#$SERVER_ROOT#g" /etc/nginx/conf.d/default.conf
 VOLUME [ "/var/www/" ]
 WORKDIR /var/www
-COPY php_ini/php.ini /etc/php5/php.ini
+ENV PHP_VERSION=5
+ADD package.sh /package.sh
+COPY php_ini/php.ini /etc/php${PHP_VERSION}/php.ini
 
 ARG DISPLAY_PHPERROR
 RUN if [ ${DISPLAY_PHPERROR} = true ]; then \
-sed -i "s#{DISPLAY}#On#g" /etc/php5/php.ini \
+sed -i "s#{DISPLAY}#On#g" /etc/php${PHP_VERSION}/php.ini \
 ;else \
-sed -i "s#{DISPLAY}#Off#g" /etc/php5/php.ini \
+sed -i "s#{DISPLAY}#Off#g" /etc/php${PHP_VERSION}/php.ini \
 ;fi
 
 #mongodb version update not supported
 #pecl install mongodb \
-#&& echo "extension=mongodb.so" > /etc/php5/conf.d/mongodb.ini
-
-ARG INSTALL_ADDITIONAL_EXTENSIONS
-RUN if [ -z "$INSTALL_ADDITIONAL_EXTENSIONS" ] ; then \
-echo "No additional PHP extensions added" \
-;else \
-apk add --no-cache ${INSTALL_ADDITIONAL_EXTENSIONS} \
-;fi
+#&& echo "extension=mongodb.so" > /etc/php${PHP_VERSION}/conf.d/mongodb.ini
 
 ## Linux permission issue
 ARG USER_ID
@@ -42,12 +37,12 @@ RUN echo "nobody ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 ARG XDEBUG
 RUN if [ ${XDEBUG} = true ]; then \
 pecl install xdebug-2.5.5 \
-&& echo "zend_extension=/usr/lib/php5/modules/xdebug.so" >> /etc/php5/php.ini \
+&& echo "zend_extension=/usr/lib/php${PHP_VERSION}/modules/xdebug.so" >> /etc/php${PHP_VERSION}/php.ini \
 ;fi
 
 ## nobody permission issue
-COPY www.conf /etc/php5/fpm.d/www.conf
-COPY php-fpm.conf /etc/php5/php-fpm.conf
+COPY www.conf /etc/php${PHP_VERSION}/fpm.d/www.conf
+COPY php-fpm.conf /etc/php${PHP_VERSION}/php-fpm.conf
 COPY nginx5.conf /etc/nginx/nginx.conf
 RUN touch /env
 RUN chown -R nobody:nobody /env
@@ -60,4 +55,12 @@ RUN chown -R nobody:nobody /var/run/
 RUN chown -R nobody:nobody /var/log/
 RUN chown -R nobody:nobody /var/lib/
 RUN chown -R nobody:nobody /etc/nginx
+
+ARG INSTALL_ADDITIONAL_EXTENSIONS
+ENV INSTALL_ADDITIONAL_EXTENSIONS=$INSTALL_ADDITIONAL_EXTENSIONS
+RUN if [ -z "$INSTALL_ADDITIONAL_EXTENSIONS" ] ; then \
+echo "No additional PHP extensions added" \
+;else \
+bash /package.sh \
+;fi
 USER nobody
