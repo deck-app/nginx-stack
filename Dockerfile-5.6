@@ -34,11 +34,11 @@ RUN usermod -u ${USER_ID} nobody && groupmod -g ${GROUP_ID} nobody
 RUN echo "nobody ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 #Xdebug enable or disable
-ARG XDEBUG
-RUN if [ ${XDEBUG} = true ]; then \
-pecl install xdebug-2.5.5 \
-&& echo "zend_extension=/usr/lib/php${PHP_VERSION}/modules/xdebug.so" >> /etc/php${PHP_VERSION}/php.ini \
-;fi
+#ARG XDEBUG
+#RUN if [ ${XDEBUG} = true ]; then \
+#pecl install xdebug-2.5.5 \
+#&& echo "zend_extension=/usr/lib/php${PHP_VERSION}/modules/xdebug.so" >> /etc/php${PHP_VERSION}/php.ini \
+#;fi
 
 ## nobody permission issue
 COPY www.conf /etc/php${PHP_VERSION}/fpm.d/www.conf
